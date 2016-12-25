@@ -24,7 +24,9 @@
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "moment": "^2.17.1"
+  },
   "engines": {
     "node": "^6.1.0"
   }

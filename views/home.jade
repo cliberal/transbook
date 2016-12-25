@@ -15,22 +15,12 @@ block content
         for info in messages.info
           div= info.msg
 
-    .row
-      .col-sm-4
-        .panel
-          .panel-body
-            h3 Heading
-            p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            a.btn.btn-default(href='#', role='button') View details
-      .col-sm-4
-        .panel
-          .panel-body
-            h3 Heading
-            p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            a.btn.btn-default(href='#', role='button') View details
-      .col-sm-4
-        .panel
-          .panel-body
-            h3 Heading
-            p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            a.btn.btn-default(href='#', role='button') View details
+    .row.col-md-8.col-md-offset-2
+      each item in books
+        .col-md-3
+          .thumbnail
+            a(href='/book/#{item._id}')
+              img(src='#{item.cover}', alt="#{item.title}")
+            .caption
+              h5 #{item.title}
+              p: a.btn.btn-sm.btn-info(href="/book/#{item._id}", role="button") 详情

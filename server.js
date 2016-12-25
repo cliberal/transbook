@@ -24,8 +24,10 @@ require('./config/passport');
 
 var app = express();
 
+app.locals.moment = require('moment');
 
-mongoose.connect(process.env.MONGODB);
+
+mongoose.connect('mongodb://localhost:27017/db');
 mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
@@ -36,7 +38,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride('_method'));
 app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
@@ -50,6 +52,12 @@ app.use(function(req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', HomeController.index);
+app.get('/book/:id',HomeController.detail);
+app.get('/admin/book/update/:id', HomeController.update);
+app.post('/admin/book/new', HomeController.add);
+app.get('/admin/book', HomeController.admin);
+app.get('/admin/list', HomeController.list);
+app.delete('admin/list', HomeController.delete)
 app.get('/contact', contactController.contactGet);
 app.post('/contact', contactController.contactPost);
 app.get('/account', userController.ensureAuthenticated, userController.accountGet);
@@ -65,8 +73,6 @@ app.get('/reset/:token', userController.resetGet);
 app.post('/reset/:token', userController.resetPost);
 app.get('/logout', userController.logout);
 app.get('/unlink/:provider', userController.ensureAuthenticated, userController.unlink);
-app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email profile repo' ] }));
-app.get('/auth/github/callback', passport.authenticate('github', { successRedirect: '/', failureRedirect: '/login' }));
 
 // Production error handler
 if (app.get('env') === 'production') {

@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  .container
+    .row
+      .page-header
+        h1=title
+        small 有趣的图书小站
+    .row
+      form.form-horizontal(method="post", action="/admin/book/new")
+        input(type='hidden', name='book[_id]', value='#{book._id}')
+        .form-group
+          label.col-sm-2.control-label(for='inputTile') 书名
+          .col-sm-10
+            input#inputTile.form-control(type="text", name="book[title]", value="#{book.title}")
+        .form-group
+          label.col-sm-2.control-label(for='inputAuthor') 作者
+          .col-sm-10
+            input#inputAuthor.form-control(type="text", name="book[author]", value="#{book.author}")
+        .form-group
+          label.col-sm-2.control-label(for='inputCountry') 国家
+          .col-sm-10
+            input#inputCountry.form-control(type="text", name="book[country]", value="#{book.country}")
+        .form-group
+          label.col-sm-2.control-label(for='inputYear') 年份
+          .col-sm-10
+            input#inputYear.form-control(type="text", name="book[year]", value="#{book.year}")
+        .form-group
+          label.col-sm-2.control-label(for='inputCover') 封面地址
+          .col-sm-10
+            input#inputCover.form-control(type="text", name="book[cover]", value="#{book.cover}")
+        .form-group
+          label.col-sm-2.control-label(for='inputSummary') 简介
+          .col-sm-10
+            input#inputSummary.form-control(type="text", name="book[summary]", value="#{book.summary}")
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-default(type="submit") 添加
