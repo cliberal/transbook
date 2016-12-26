@@ -53,11 +53,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', HomeController.index);
 app.get('/book/:id',HomeController.detail);
-app.get('/admin/book/update/:id', HomeController.update);
+app.get('/admin/update/:id', HomeController.update);
 app.post('/admin/book/new', HomeController.add);
 app.get('/admin/book', HomeController.admin);
 app.get('/admin/list', HomeController.list);
-app.delete('admin/list', HomeController.delete)
+app.delete('/admin/list', HomeController.delete);
 app.get('/contact', contactController.contactGet);
 app.post('/contact', contactController.contactPost);
 app.get('/account', userController.ensureAuthenticated, userController.accountGet);
@@ -85,5 +85,6 @@ if (app.get('env') === 'production') {
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
+mongoose.Promise = global.Promise;
 
 module.exports = app;
